@@ -1,10 +1,27 @@
 import React, { useState, useEffect } from 'react';
+import '../index.css';
 import { DataGrid, GridToolbarQuickFilter } from '@mui/x-data-grid';
 //for backend connection
 import axios from "axios";
 import { Box } from '@mui/material';
+import Button from '@mui/material/Button';
+import { redirect, useNavigate } from 'react-router-dom';
+import SendIcon from '@mui/icons-material/Send';
+import Grid from '@mui/material/Unstable_Grid2';
+
+
+
+const ContainerStyle = {
+  backgroundColor: 'white',
+  borderRadius: '5px',
+  margin: '30px 50px 50px 50px',
+  padding: '10px',
+  height:"500px", 
+  width: '90%'
+};
 
 function QuickSearchToolbar() {
+  
   return (
     <Box
       sx={{
@@ -19,6 +36,8 @@ function QuickSearchToolbar() {
 
 export default function PreorderList() {
     const [preorders, setPreorders] = React.useState([]);
+    const navigate = useNavigate();
+    
 
     useEffect(() => {
         // Axios API call
@@ -33,7 +52,8 @@ export default function PreorderList() {
         }, []);
 
   return (
-    <div style={{  width: '120%' }}>
+    <div style={ContainerStyle}>
+      
     <DataGrid
       columns={[{ field: 'id', headerName: 'ID' },
                 { field: 'name', headerName: 'Customer Name' },
@@ -64,6 +84,12 @@ export default function PreorderList() {
       //   disableColumnSelector
       //   disableDensitySelector
     />
+    <Button onClick={()=>{navigate('/')}} variant="contained" endIcon={<SendIcon />}>
+      Creat Order
+    </Button>
+   
   </div>
   );
+
+  
 }
